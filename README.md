@@ -7,7 +7,7 @@
 
 # Preview
 
-![0](preview/000.png)
+![0](preview/00.png)
 
 
 ## License
