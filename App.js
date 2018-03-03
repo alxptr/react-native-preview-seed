@@ -10,9 +10,7 @@ import {
   NotificationsAndroid,
   PendingNotifications,
 } from 'react-native-notifications';
-import { TextMask, TextInputAdapter } from 'react-text-mask-hoc/ReactNative';
-
-const phoneMask = ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
+import TextInputMask from 'react-native-text-input-mask';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -38,15 +36,13 @@ export default class App extends React.Component {
             placeholder='Password'
             secureTextEntry={true}
             onChangeText={(password) => this.setState({password: password})}/>
-          <TextMask
-            Component={TextInputAdapter}
+          <TextInputMask
             value={this.state.phoneValue}
-            mask={phoneMask}
-            placeholder={'Phone'}
-            guide={false}
-            onChange={(event) => this.setState({phoneValue: event.text})}
+            onChangeText={(formatted, extracted) => this.setState({phoneValue: extracted})}
             style={styles.fieldInput}
-            maxLength={phoneMask.length}/>
+            placeholder={'Phone'}
+            mask={"+1 ([000]) [000] [00] [00]"}
+          />
           <Button
             onPress={this.onPressClick}
             title="Send a local notification"
@@ -58,7 +54,7 @@ export default class App extends React.Component {
   }
 
   onPressClick() {
-    this.onSendNotification(`Login: ${this.state.login}, password: ${this.state.password}`);
+    this.onSendNotification(`Login: ${this.state.login}, password: ${this.state.password}, phone: ${this.state.phoneValue}`);
   }
 
   onSendNotification(text) {
@@ -85,9 +81,9 @@ const styles = StyleSheet.create({
   },
   fieldInput: {
     width: '100%',
-    height: 48,
-    fontSize: 24,
-    lineHeight: 24,
+    height: 44,
+    fontSize: 22,
+    lineHeight: 22,
   },
 });
 
