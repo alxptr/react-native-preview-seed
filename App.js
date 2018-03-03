@@ -2,7 +2,7 @@ import React from 'react';
 import {
   AppRegistry,
   StyleSheet,
-  Text,
+  TextInput,
   View,
   Button,
 } from 'react-native';
@@ -10,6 +10,9 @@ import {
   NotificationsAndroid,
   PendingNotifications,
 } from 'react-native-notifications';
+import { TextMask, TextInputAdapter } from 'react-text-mask-hoc/ReactNative';
+
+const phoneMask = ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
 
 export default class App extends React.Component {
   constructor(props) {
@@ -25,17 +28,37 @@ export default class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Button
-          onPress={this.onPressClick}
-          title="Send a local notification"
-          color="#78ff9b"
-        />
+        <View style={styles.innerContainer}>
+          <TextInput
+            style={styles.fieldInput}
+            placeholder='Login'
+            onChangeText={(login) => this.setState({login: login})}/>
+          <TextInput
+            style={styles.fieldInput}
+            placeholder='Password'
+            secureTextEntry={true}
+            onChangeText={(password) => this.setState({password: password})}/>
+          <TextMask
+            Component={TextInputAdapter}
+            value={this.state.phoneValue}
+            mask={phoneMask}
+            placeholder={'Phone'}
+            guide={false}
+            onChange={(event) => this.setState({phoneValue: event.text})}
+            style={styles.fieldInput}
+            maxLength={phoneMask.length}/>
+          <Button
+            onPress={this.onPressClick}
+            title="Send a local notification"
+            color="#78ff9b"
+          />
+        </View>
       </View>
     );
   }
 
   onPressClick() {
-    this.onSendNotification('This is a first notification!');
+    this.onSendNotification(`Login: ${this.state.login}, password: ${this.state.password}`);
   }
 
   onSendNotification(text) {
@@ -56,6 +79,15 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  innerContainer: {
+    width: '50%',
+  },
+  fieldInput: {
+    width: '100%',
+    height: 48,
+    fontSize: 24,
+    lineHeight: 24,
   },
 });
 

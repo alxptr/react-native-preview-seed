@@ -22,6 +22,7 @@
     "babel-preset-react-native-stage-0": "^1.0.1",
     "react": "16.2.0",
     "react-native": "0.53.0",
-    "react-native-notifications": "1.1.19"
+    "react-native-notifications": "1.1.19",
+    "react-text-mask-hoc": "0.10.6"
   }
 }
