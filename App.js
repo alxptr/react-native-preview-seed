@@ -15,7 +15,6 @@ import TextInputMask from 'react-native-text-input-mask';
 export default class App extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {};
 
     this.onSendNotification = this.onSendNotification.bind(this);
@@ -37,7 +36,6 @@ export default class App extends React.Component {
             secureTextEntry={true}
             onChangeText={(password) => this.setState({password: password})}/>
           <TextInputMask
-            value={this.state.phoneValue}
             onChangeText={(formatted, extracted) => this.setState({phoneValue: extracted})}
             style={styles.fieldInput}
             placeholder={'Phone'}
