@@ -3,13 +3,15 @@ package com.reactnativepreviewseed;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import br.com.classapp.RNSensitiveInfo.RNSensitiveInfoPackage;
+import com.hieuvp.fingerprint.ReactNativeFingerprintScannerPackage;
 import com.RNTextInputMask.RNTextInputMaskPackage;
+import com.wix.reactnativenotifications.RNNotificationsPackage;
+import org.reactnative.camera.RNCameraPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
-
-import com.wix.reactnativenotifications.RNNotificationsPackage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -26,8 +28,11 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+          new RNSensitiveInfoPackage(),
+          new ReactNativeFingerprintScannerPackage(),
           new RNTextInputMaskPackage(),
-          new RNNotificationsPackage(MainApplication.this)
+          new RNNotificationsPackage(MainApplication.this),
+          new RNCameraPackage()
       );
     }
 
